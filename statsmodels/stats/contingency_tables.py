@@ -1347,6 +1347,37 @@ def mcnemar(table, exact=True, correction=True):
     b.pvalue = pvalue
     return b
 
+def fisher_exact(table, alternative = 'two-sided'):
+    """
+    Fisher's exact test
+
+    Parameters
+    ----------
+    table : array_like
+        A square contingency table.
+    alternative : TODO
+
+    Returns
+    -------
+    A bunch with attributes:
+
+    statistic : TODO
+    pvalue : TODO
+
+    Notes
+    -----
+    TODO
+    """
+
+    table = _make_df_square(table)
+    table = np.asarray(table, dtype=np.float64)
+    scipy_result = stats.fisher_exact(table, alternative)
+
+    result = _Bunch()
+    result.oddsratio = scipy_result[0]
+    result.pvalue = scipy_result[1]
+    return result
+
 
 def cochrans_q(x, return_object=True):
     """

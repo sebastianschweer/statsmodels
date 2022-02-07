@@ -230,6 +230,15 @@ def test_mcnemar():
     b4 = ctab.mcnemar(tables[0], exact=True)
     assert_allclose(b4.pvalue, r_results.loc[0, "homog_binom_p"])
 
+def test_fisher_exact():
+
+    # see example of scipy documentation
+    whales = np.asarray([[8, 2], [1, 5]])
+    b = ctab.fisher_exact(whales)
+    assert_allclose(b.pvalue, 0.034965)
+
+
+
 def test_from_data_stratified():
 
     df = pd.DataFrame([[1, 1, 1, 0, 1, 0, 1, 0], [0, 1, 0, 1, 0, 1, 0, 0],
